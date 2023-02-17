@@ -1,7 +1,7 @@
 const App = () => (
-        <div className="bg-black w-full h-screen p-4">
-                <div className="rounded w-full h-full border-yellow-400 border"></div>
-        </div>
+  <div className='h-screen w-full bg-black p-4'>
+    <div className='h-full w-full rounded border border-yellow-400'></div>
+  </div>
 )
 
 export default App
