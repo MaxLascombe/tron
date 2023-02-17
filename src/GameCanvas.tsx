@@ -1,19 +1,52 @@
 import { useEffect, useRef } from 'react'
 import { useAnimationFrame } from './hooks/useAnimationFrame'
+import { usePlayer } from './hooks/usePlayer'
 
 const GameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  useAnimationFrame(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const context = canvas.getContext('2d')
-    if (!context) return
-    context.fillStyle = 'red'
-    context.fillRect(0, 0, 100, 100)
-    return () => context.clearRect(0, 0, canvas.width, canvas.height)
-  })
+  const playerSize = 10
+
+  const { position: redPos, updatePosition: redUpdatePosition } = usePlayer([
+    10, 10,
+  ])
+  const { position: bluePos, updatePosition: blueUpdatePosition } = usePlayer([
+    20, 20,
+  ])
+
+  useAnimationFrame(
+    dt => {
+      redUpdatePosition(dt)
+      blueUpdatePosition(dt)
+
+      const canvas = canvasRef.current
+      if (!canvas) return
+      const context = canvas.getContext('2d')
+      if (!context) return
+
+      context.clearRect(0, 0, canvas.width, canvas.height)
+
+      context.fillStyle = 'red'
+      context.fillRect(
+        redPos[0] - playerSize / 2,
+        redPos[1] - playerSize / 2,
+        playerSize,
+        playerSize
+      )
+      context.fillStyle = 'blue'
+      context.fillRect(
+        bluePos[0] - playerSize / 2,
+        bluePos[1] - playerSize / 2,
+        playerSize,
+        playerSize
+      )
+
+      return () => context.clearRect(0, 0, canvas.width, canvas.height)
+    },
+    redPos,
+    bluePos
+  )
 
   const resizeCanvas = () => {
     const canvas = canvasRef.current
