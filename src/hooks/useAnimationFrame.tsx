@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 
 export const useAnimationFrame = (
   stepFunction: (dt: number) => void,
+  active = true,
   ...args: any[]
 ) => {
   const lastTimeRef = useRef<number>()
@@ -15,9 +16,13 @@ export const useAnimationFrame = (
   }
 
   useEffect(() => {
-    animationRef.current = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(animationRef.current)
-  }, args)
+    if (active) {
+      animationRef.current = requestAnimationFrame(animate)
+      return () => cancelAnimationFrame(animationRef.current)
+    } else {
+      cancelAnimationFrame(animationRef.current)
+    }
+  }, [active, ...args])
 
   return animationRef
 }
@@ -36,6 +41,7 @@ export const useAnimationTimeout = (
       dtRef.current = 0
       toDo()
     },
+    true,
     [timeout, ...args]
   )
 }
