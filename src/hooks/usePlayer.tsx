@@ -13,15 +13,35 @@ export const usePlayer = (
     switch (direction) {
       case 'up':
         setPosition(([x, y]) => [x, y - dt * 0.1])
+        if (vertices[vertices.length - 1][0] !== position[0])
+          setVertices(v => [
+            ...v.slice(0, -1),
+            [position[0], v[v.length - 1][1]],
+          ])
         break
       case 'down':
         setPosition(([x, y]) => [x, y + dt * 0.1])
+        if (vertices[vertices.length - 1][0] !== position[0])
+          setVertices(v => [
+            ...v.slice(0, -1),
+            [position[0], v[v.length - 1][1]],
+          ])
         break
       case 'left':
         setPosition(([x, y]) => [x - dt * 0.1, y])
+        if (vertices[vertices.length - 1][1] !== position[1])
+          setVertices(v => [
+            ...v.slice(0, -1),
+            [v[v.length - 1][0], position[1]],
+          ])
         break
       case 'right':
         setPosition(([x, y]) => [x + dt * 0.1, y])
+        if (vertices[vertices.length - 1][1] !== position[1])
+          setVertices(v => [
+            ...v.slice(0, -1),
+            [v[v.length - 1][0], position[1]],
+          ])
         break
     }
   }

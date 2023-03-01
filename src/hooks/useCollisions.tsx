@@ -1,3 +1,5 @@
+import { Ref } from 'react'
+
 type Point = [number, number]
 type Path = Point[]
 
@@ -22,7 +24,7 @@ function intersects(
   }
 }
 
-export const useCollisions = (paths: Path[]) => {
+export const useCollisions = (canvasRef: Ref<HTMLElement>, paths: Path[]) => {
   for (let i = 0; i < paths.length; i++) {
     // last two in path
     const currentSegment = paths[i].slice(-2)

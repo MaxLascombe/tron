@@ -8,7 +8,7 @@ const GameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const playerSize = 10
+  const playerSize = 5
 
   const {
     position: redPos,
@@ -23,12 +23,12 @@ const GameCanvas = () => {
     vertices: blueVertices,
   } = usePlayer([100, 50])
 
-  const loser = useCollisions([
+  const loser = useCollisions(canvasRef, [
     [...redVertices, redPos],
     [...blueVertices, bluePos],
   ])
 
-  const animationRef = useAnimationFrame(
+  useAnimationFrame(
     dt => {
       redUpdatePosition(dt)
       blueUpdatePosition(dt)
