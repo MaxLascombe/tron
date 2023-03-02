@@ -3,13 +3,16 @@ import { useState } from 'react'
 type Direction = 'up' | 'right' | 'down' | 'left'
 export const usePlayer = (
   initialPosition: [number, number] = [0, 0],
-  initialDirection: Direction
+  initialDirection: Direction,
+  gameStatus: 'running' | 'pause' | 'over'
 ) => {
   const [position, setPosition] = useState<[number, number]>(initialPosition)
   const [direction, setDirection] = useState<Direction>(initialDirection)
   const [vertices, setVertices] = useState([initialPosition])
 
   const updatePosition = (dt: number) => {
+    if (gameStatus !== 'running') return
+
     setPosition(([x, y]) => [
       x +
         (direction === 'right' ? 1 : direction === 'left' ? -1 : 0) * dt * 0.1,

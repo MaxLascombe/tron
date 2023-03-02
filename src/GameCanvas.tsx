@@ -1,10 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAnimationFrame } from './hooks/useAnimationFrame'
 import { useCollisions } from './hooks/useCollisions'
 import { useKeyAction } from './hooks/useKeyAction'
 import { usePlayer } from './hooks/usePlayer'
 
 const GameCanvas = () => {
+  const [gameStatus, setGameStatus] = useState<'running' | 'pause' | 'over'>(
+    'pause'
+  )
+
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -15,18 +19,20 @@ const GameCanvas = () => {
     updatePosition: redUpdatePosition,
     turn: redTurn,
     vertices: redVertices,
-  } = usePlayer([50, 100], 'down')
+  } = usePlayer([50, 100], 'down', gameStatus)
   const {
     position: bluePos,
     updatePosition: blueUpdatePosition,
     turn: blueTurn,
     vertices: blueVertices,
-  } = usePlayer([100, 50], 'right')
+  } = usePlayer([100, 50], 'right', gameStatus)
 
   const loser = useCollisions([
     [...redVertices, redPos],
     [...blueVertices, bluePos],
   ])
+
+  if (loser >= 0 && gameStatus !== 'over') setGameStatus('over')
 
   useAnimationFrame(
     dt => {
