@@ -137,7 +137,7 @@ const GameCanvas = () => {
   return (
     <div
       ref={containerRef}
-      className='h-full w-full overflow-hidden rounded border border-white'>
+      className='h-full w-full overflow-hidden rounded-lg border-2 border-white'>
       <canvas className='h-full w-full' ref={canvasRef} />
     </div>
   )

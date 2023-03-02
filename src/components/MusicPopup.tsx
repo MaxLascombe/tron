@@ -3,33 +3,40 @@ import { SiSpotify, SiApplemusic, SiYoutubemusic } from 'react-icons/si'
 
 import Popup from './Popup'
 
+const MUSIC_LINKS = [
+  {
+    name: 'Spotify',
+    link: 'https://open.spotify.com/track/7hqlHZIXhwAzpWQxm9KzBd?si=a30cb4cea60944c6',
+    icon: SiSpotify,
+  },
+  {
+    name: 'Apple Music',
+    link: 'https://music.apple.com/us/song/derezzed/1440617959',
+    icon: SiApplemusic,
+  },
+  {
+    name: 'YouTube Music',
+    link: 'https://www.youtube.com/watch?v=F4eccPBFEjE',
+    icon: SiYoutubemusic,
+  },
+]
+
 const MusicPopup = () => {
   const [isOpen, setIsOpen] = useState(true)
   return (
     <Popup show={isOpen} blur={true}>
       Before we begin, please select your music player:
       <div className='mt-4 flex justify-center'>
-        <a
-          href='https://open.spotify.com/track/7hqlHZIXhwAzpWQxm9KzBd?si=a30cb4cea60944c6'
-          target='_blank'
-          rel='noreferrer'
-          onClick={() => setIsOpen(false)}>
-          <SiSpotify className='mx-2 inline-block h-8 w-8' />
-        </a>
-        <a
-          href='https://music.apple.com/us/song/derezzed/1440617959'
-          target='_blank'
-          rel='noreferrer'
-          onClick={() => setIsOpen(false)}>
-          <SiApplemusic className='mx-2 inline-block h-8 w-8' />
-        </a>
-        <a
-          href='https://www.youtube.com/watch?v=F4eccPBFEjE'
-          target='_blank'
-          rel='noreferrer'
-          onClick={() => setIsOpen(false)}>
-          <SiYoutubemusic className='mx-2 inline-block h-8 w-8' />
-        </a>
+        {MUSIC_LINKS.map(({ name, link, icon: Icon }) => (
+          <a
+            key={name}
+            href={link}
+            target='_blank'
+            rel='noreferrer'
+            onClick={() => setIsOpen(false)}>
+            <Icon className='mx-2 inline-block h-8 w-8' />
+          </a>
+        ))}
       </div>
     </Popup>
   )
