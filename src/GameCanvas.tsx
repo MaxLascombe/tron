@@ -21,9 +21,9 @@ const GameCanvas = () => {
     updatePosition: blueUpdatePosition,
     turn: blueTurn,
     vertices: blueVertices,
-  } = usePlayer([100, 50])
+  } = usePlayer([100, 50], 'right')
 
-  const loser = useCollisions(canvasRef, [
+  const loser = useCollisions([
     [...redVertices, redPos],
     [...blueVertices, bluePos],
   ])

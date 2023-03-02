@@ -24,12 +24,13 @@ function intersects(
   }
 }
 
-export const useCollisions = (canvasRef: Ref<HTMLElement>, paths: Path[]) => {
+export const useCollisions = (paths: Path[]) => {
   for (let i = 0; i < paths.length; i++) {
+    const path = paths[i]
     // last two in path
-    const currentSegment = paths[i].slice(-2)
-    for (let j = 0; j < paths[i].length - 2; j++) {
-      const segment = [paths[i][j], paths[i][j + 1]]
+    const currentSegment = path.slice(-2)
+    for (let j = 0; j < path.length - 2; j++) {
+      const segment = [path[j], path[j + 1]]
       if (
         intersects(
           currentSegment[0][0],
@@ -44,7 +45,8 @@ export const useCollisions = (canvasRef: Ref<HTMLElement>, paths: Path[]) => {
       )
         return i
     }
-    for (let j = i + 1; j < paths.length; j++) {
+    for (let j = 0; j < paths.length; j++) {
+      if (i === j) continue
       for (let k = 0; k < paths[j].length - 1; k++) {
         const segment = [paths[j][k], paths[j][k + 1]]
         if (
