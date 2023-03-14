@@ -6,10 +6,13 @@ export const usePlayer = (
   initialDirection: Direction
 ) => {
   const [position, setPosition] = useState<[number, number]>(initialPosition)
+  const [prevPosition, setPrevPosition] =
+    useState<[number, number]>(initialPosition)
   const [direction, setDirection] = useState<Direction>(initialDirection)
   const [vertices, setVertices] = useState([initialPosition])
 
   const updatePosition = (dt: number) => {
+    setPrevPosition(position)
     setPosition(([x, y]) => [
       x +
         (direction === 'right' ? 1 : direction === 'left' ? -1 : 0) * dt * 0.1,
@@ -41,6 +44,7 @@ export const usePlayer = (
 
   return {
     position,
+    prevPosition,
     updatePosition,
     turn,
     vertices,

@@ -24,11 +24,17 @@ function intersects(
   }
 }
 
-export const useCollisions = (paths: Path[]) => {
+export const useCollisions = (
+  curMoves: [number, number, number, number][],
+  paths: Path[]
+) => {
+  if (curMoves.length !== paths.length) throw new Error()
   for (let i = 0; i < paths.length; i++) {
     const path = paths[i]
-    // last two in path
-    const currentSegment = path.slice(-2)
+    const currentSegment = [
+      [curMoves[i][0], curMoves[i][1]],
+      [curMoves[i][2], curMoves[i][3]],
+    ] as const
     for (let j = 0; j < path.length - 2; j++) {
       const segment = [path[j], path[j + 1]]
       if (

@@ -19,21 +19,29 @@ const GameCanvas = ({
 
   const {
     position: redPos,
+    prevPosition: redPrev,
     updatePosition: redUpdatePosition,
     turn: redTurn,
     vertices: redVertices,
   } = usePlayer([50, 100], 'down')
   const {
     position: bluePos,
+    prevPosition: bluePrev,
     updatePosition: blueUpdatePosition,
     turn: blueTurn,
     vertices: blueVertices,
   } = usePlayer([100, 50], 'right')
 
-  const loser = useCollisions([
-    [...redVertices, redPos],
-    [...blueVertices, bluePos],
-  ])
+  const loser = useCollisions(
+    [
+      [redPrev[0], redPrev[1], redPos[0], redPos[1]],
+      [bluePrev[0], bluePrev[1], bluePos[0], bluePos[1]],
+    ],
+    [
+      [...redVertices, redPos],
+      [...blueVertices, bluePos],
+    ]
+  )
 
   if (loser >= 0 && gameStatus !== 'over') setGameStatus('over')
 
@@ -140,7 +148,14 @@ const GameCanvas = ({
   return (
     <div
       ref={containerRef}
-      className='h-full w-full overflow-hidden rounded-lg border-2 border-white'>
+      className={
+        'h-full w-full overflow-hidden rounded-lg border-2 ' +
+        (loser === 0
+          ? 'border-blue-800'
+          : loser === 1
+          ? 'border-red-600'
+          : 'border-white')
+      }>
       <canvas className='h-full w-full' ref={canvasRef} />
     </div>
   )
