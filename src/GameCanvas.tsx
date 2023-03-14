@@ -8,9 +8,11 @@ import { GameStatus } from './types'
 const GameCanvas = ({
   gameStatus,
   setGameStatus,
+  setWinner,
 }: {
   gameStatus: GameStatus
   setGameStatus: Dispatch<SetStateAction<GameStatus>>
+  setWinner: Dispatch<SetStateAction<'red' | 'blue'>>
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -43,7 +45,10 @@ const GameCanvas = ({
     ]
   )
 
-  if (loser >= 0 && gameStatus !== 'over') setGameStatus('over')
+  if (loser >= 0 && gameStatus !== 'over') {
+    setGameStatus('over')
+    setWinner(loser === 0 ? 'blue' : 'red')
+  }
 
   useAnimationFrame(
     dt => {
