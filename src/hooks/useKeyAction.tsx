@@ -10,6 +10,7 @@ type KeyAction = {
     | 's'
     | 'd'
     | 'w'
+    | ' '
   function: (e: KeyboardEvent) => void
 }
 

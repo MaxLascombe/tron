@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, Dispatch, SetStateAction } from 'react'
 import { useAnimationFrame } from './hooks/useAnimationFrame'
 import { useCollisions } from './hooks/useCollisions'
 import { useKeyAction } from './hooks/useKeyAction'
 import { usePlayer } from './hooks/usePlayer'
+import { GameStatus } from './types'
 
-const GameCanvas = () => {
-  const [gameStatus, setGameStatus] = useState<'running' | 'pause' | 'over'>(
-    'pause'
-  )
-
+const GameCanvas = ({
+  gameStatus,
+  setGameStatus,
+}: {
+  gameStatus: GameStatus
+  setGameStatus: Dispatch<SetStateAction<GameStatus>>
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -137,7 +140,14 @@ const GameCanvas = () => {
   return (
     <div
       ref={containerRef}
-      className='h-full w-full overflow-hidden rounded-lg border-2 border-white'>
+      className={
+        'h-full w-full overflow-hidden rounded-lg border-2 ' +
+        (loser === 0
+          ? 'border-blue-800'
+          : loser === 1
+          ? 'border-red-500'
+          : 'border-white')
+      }>
       <canvas className='h-full w-full' ref={canvasRef} />
     </div>
   )

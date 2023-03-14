@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
+import { GameStatus } from '../types'
+
 type Direction = 'up' | 'right' | 'down' | 'left'
 export const usePlayer = (
   initialPosition: [number, number] = [0, 0],
   initialDirection: Direction,
-  gameStatus: 'running' | 'pause' | 'over'
+  gameStatus: GameStatus
 ) => {
   const [position, setPosition] = useState<[number, number]>(initialPosition)
   const [direction, setDirection] = useState<Direction>(initialDirection)
@@ -33,6 +35,7 @@ export const usePlayer = (
   }
 
   const turn = (newDirection: Direction) => {
+    if (gameStatus !== 'running') return
     if (newDirection === 'up' && direction === 'down') return
     if (newDirection === 'down' && direction === 'up') return
     if (newDirection === 'left' && direction === 'right') return
