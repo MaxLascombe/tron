@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 
 export const useAnimationFrame = (
   stepFunction: (dt: number) => void,
-  active = true,
   ...args: any[]
 ) => {
   const lastTimeRef = useRef<number>()
@@ -16,13 +15,9 @@ export const useAnimationFrame = (
   }
 
   useEffect(() => {
-    if (active) {
-      animationRef.current = requestAnimationFrame(animate)
-      return () => cancelAnimationFrame(animationRef.current)
-    } else {
-      cancelAnimationFrame(animationRef.current)
-    }
-  }, [active, ...args])
+    animationRef.current = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animationRef.current)
+  }, [...args])
 
   return animationRef
 }

@@ -8,7 +8,7 @@ import { GameStatus } from './types'
 
 const App = () => {
   const [gameStatus, setGameStatus] = useState<GameStatus>('menu')
-  const [gameKey, setGameKey] = useState(-1)
+  const [gameKey, setGameKey] = useState(0)
 
   useKeyAction([
     {
@@ -26,11 +26,8 @@ const App = () => {
 
   return (
     <div className='h-screen w-full bg-black p-4 font-mono'>
-      {gameStatus === 'menu' && gameKey === -1 && <MusicPopup />}
       <PausePopup paused={gameStatus === 'paused'} />
-      {gameStatus !== 'menu' && (
-        <GameCanvas key={gameKey} {...{ gameStatus, setGameStatus }} />
-      )}
+      <GameCanvas key={gameKey} {...{ gameStatus, setGameStatus }} />
     </div>
   )
 }

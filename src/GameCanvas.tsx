@@ -22,13 +22,13 @@ const GameCanvas = ({
     updatePosition: redUpdatePosition,
     turn: redTurn,
     vertices: redVertices,
-  } = usePlayer([50, 100], 'down', gameStatus)
+  } = usePlayer([50, 100], 'down')
   const {
     position: bluePos,
     updatePosition: blueUpdatePosition,
     turn: blueTurn,
     vertices: blueVertices,
-  } = usePlayer([100, 50], 'right', gameStatus)
+  } = usePlayer([100, 50], 'right')
 
   const loser = useCollisions([
     [...redVertices, redPos],
@@ -39,8 +39,10 @@ const GameCanvas = ({
 
   useAnimationFrame(
     dt => {
-      redUpdatePosition(dt)
-      blueUpdatePosition(dt)
+      if (gameStatus === 'running') {
+        redUpdatePosition(dt)
+        blueUpdatePosition(dt)
+      }
 
       const canvas = canvasRef.current
       if (!canvas) return
@@ -80,12 +82,10 @@ const GameCanvas = ({
         context.lineTo(blueVertices[i][0], blueVertices[i][1])
       context.lineTo(bluePos[0], bluePos[1])
       context.stroke()
-
-      return () => context.clearRect(0, 0, canvas.width, canvas.height)
     },
-    loser < 0,
     redPos,
-    bluePos
+    bluePos,
+    gameStatus
   )
 
   useKeyAction([
@@ -140,14 +140,7 @@ const GameCanvas = ({
   return (
     <div
       ref={containerRef}
-      className={
-        'h-full w-full overflow-hidden rounded-lg border-2 ' +
-        (loser === 0
-          ? 'border-blue-800'
-          : loser === 1
-          ? 'border-red-500'
-          : 'border-white')
-      }>
+      className='h-full w-full overflow-hidden rounded-lg border-2 border-white'>
       <canvas className='h-full w-full' ref={canvasRef} />
     </div>
   )
