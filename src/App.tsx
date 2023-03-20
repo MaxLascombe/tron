@@ -22,6 +22,7 @@ const App = () => {
       key: ' ',
       function: () =>
         setGameStatus(gs => {
+          if (showMusicPopup) return gs
           if (gs === 'over') {
             setGameKey(gk => gk + 1)
             return 'menu'
