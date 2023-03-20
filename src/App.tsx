@@ -13,6 +13,10 @@ const App = () => {
   const [gameKey, setGameKey] = useState(0)
   const [winner, setWinner] = useState<'red' | 'blue'>('red')
 
+  const showMusicPopup = gameStatus === 'menu' && gameKey === 0
+
+  const closeMusicPopup = () => setGameKey(gk => gk + 1)
+
   useKeyAction([
     {
       key: ' ',
@@ -33,7 +37,11 @@ const App = () => {
 
   return (
     <div className='h-screen w-full bg-black p-4 font-mono'>
-      <Menu show={gameStatus === 'menu'} />
+      {showMusicPopup ? (
+        <MusicPopup close={closeMusicPopup} />
+      ) : (
+        <Menu show={gameStatus === 'menu'} />
+      )}
       <PausePopup paused={gameStatus === 'paused'} />
       <GameCanvas key={gameKey} {...{ gameStatus, setGameStatus, setWinner }} />
       <GameOver show={gameStatus === 'over'} winner={winner} />

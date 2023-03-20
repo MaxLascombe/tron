@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { SiSpotify, SiApplemusic, SiYoutubemusic } from 'react-icons/si'
 
 import Popup from './Popup'
@@ -21,24 +20,22 @@ const MUSIC_LINKS = [
   },
 ]
 
-const MusicPopup = () => {
-  const [isOpen, setIsOpen] = useState(true)
-  return (
-    <Popup show={isOpen} blur={true}>
-      Before we begin, please select your music player:
-      <div className='mt-4 flex justify-center'>
-        {MUSIC_LINKS.map(({ name, link, icon: Icon }) => (
-          <a
-            key={name}
-            href={link}
-            target='_blank'
-            rel='noreferrer'
-            onClick={() => setIsOpen(false)}>
-            <Icon className='mx-2 inline-block h-8 w-8' />
-          </a>
-        ))}
-      </div>
-    </Popup>
-  )
-}
+const MusicPopup = ({ close }: { close: () => void }) => (
+  <Popup show={true} blur={true}>
+    Before we begin, please select your music player:
+    <div className='mt-4 flex justify-center'>
+      {MUSIC_LINKS.map(({ name, link, icon: Icon }) => (
+        <a
+          key={name}
+          href={link}
+          target='_blank'
+          rel='noreferrer'
+          onClick={close}>
+          <Icon className='mx-2 inline-block h-8 w-8' />
+        </a>
+      ))}
+    </div>
+  </Popup>
+)
+
 export default MusicPopup
