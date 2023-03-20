@@ -30,6 +30,7 @@ const MusicPopup = ({ close }: { close: () => void }) => (
           href={link}
           target='_blank'
           rel='noreferrer'
+          className='rounded-lg py-1 outline-none ring-white hover:ring focus:ring'
           onClick={close}>
           <Icon className='mx-2 inline-block h-8 w-8' />
         </a>
