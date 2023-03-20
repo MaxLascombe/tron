@@ -26,8 +26,14 @@ function intersects(
 
 export const useCollisions = (
   curMoves: [number, number, number, number][],
-  paths: Path[]
+  paths: Path[],
+  { width, height }: { width: number; height: number }
 ) => {
+  for (let i = 0; i < curMoves.length; i++) {
+    const pos = curMoves[i].slice(2)
+    if (pos[0] < 0 || pos[1] < 0 || pos[0] > width || pos[1] > height) return i
+  }
+
   if (curMoves.length !== paths.length) throw new Error()
   for (let i = 0; i < paths.length; i++) {
     const path = paths[i]

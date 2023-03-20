@@ -19,9 +19,11 @@ const GameCanvas = ({
 
   const playerSize = 5
 
-  const [initialBluePos, setInitialBluePos] = useState<[number, number]>([
-    50, 50,
-  ])
+  const [{ width, height }, setCanvasSize] = useState<{
+    width: number
+    height: number
+  }>({ width: 100, height: 100 })
+  const initialBluePos = [width - 50, height - 50] as [number, number]
 
   const {
     position: redPos,
@@ -46,7 +48,8 @@ const GameCanvas = ({
     [
       [...redVertices, redPos],
       [...blueVertices, bluePos],
-    ]
+    ],
+    { width, height }
   )
 
   if (loser >= 0 && gameStatus !== 'over') {
@@ -148,7 +151,7 @@ const GameCanvas = ({
     canvas.height = container.clientHeight
 
     if (gameStatus === 'menu')
-      setInitialBluePos([canvas.width - 50, canvas.height - 50])
+      setCanvasSize({ width: canvas.width, height: canvas.height })
   }
 
   useEffect(() => {
