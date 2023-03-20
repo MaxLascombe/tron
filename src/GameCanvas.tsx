@@ -1,4 +1,4 @@
-import { useEffect, useRef, Dispatch, SetStateAction } from 'react'
+import { useEffect, useRef, Dispatch, SetStateAction, useState } from 'react'
 import { useAnimationFrame } from './hooks/useAnimationFrame'
 import { useCollisions } from './hooks/useCollisions'
 import { useKeyAction } from './hooks/useKeyAction'
@@ -19,20 +19,24 @@ const GameCanvas = ({
 
   const playerSize = 5
 
+  const [initialBluePos, setInitialBluePos] = useState<[number, number]>([
+    50, 50,
+  ])
+
   const {
     position: redPos,
     prevPosition: redPrev,
     updatePosition: redUpdatePosition,
     turn: redTurn,
     vertices: redVertices,
-  } = usePlayer([50, 100], 'down')
+  } = usePlayer([50, 50], 'down', gameStatus)
   const {
     position: bluePos,
     prevPosition: bluePrev,
     updatePosition: blueUpdatePosition,
     turn: blueTurn,
     vertices: blueVertices,
-  } = usePlayer([100, 50], 'right')
+  } = usePlayer(initialBluePos, 'up', gameStatus)
 
   const loser = useCollisions(
     [
@@ -142,6 +146,9 @@ const GameCanvas = ({
     if (!canvas || !container) return
     canvas.width = container.clientWidth
     canvas.height = container.clientHeight
+
+    if (gameStatus === 'menu')
+      setInitialBluePos([canvas.width - 50, canvas.height - 50])
   }
 
   useEffect(() => {

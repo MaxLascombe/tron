@@ -1,15 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { GameStatus } from '../types'
 
 type Direction = 'up' | 'right' | 'down' | 'left'
 export const usePlayer = (
   initialPosition: [number, number] = [0, 0],
-  initialDirection: Direction
+  initialDirection: Direction,
+  gameStatus: GameStatus
 ) => {
   const [position, setPosition] = useState<[number, number]>(initialPosition)
   const [prevPosition, setPrevPosition] =
     useState<[number, number]>(initialPosition)
   const [direction, setDirection] = useState<Direction>(initialDirection)
   const [vertices, setVertices] = useState([initialPosition])
+
+  useEffect(() => {
+    if (gameStatus !== 'menu') return
+    if (
+      initialPosition[0] === position[0] &&
+      initialPosition[1] === position[1]
+    )
+      return
+    setPosition(initialPosition)
+    setPrevPosition(initialPosition)
+    setVertices([initialPosition])
+  }, [initialPosition, position])
 
   const updatePosition = (dt: number) => {
     setPrevPosition(position)
