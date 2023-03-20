@@ -17,7 +17,7 @@ const Popup = ({
     />
     <div
       className={
-        'absolute top-1/2 left-1/2 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-xl border-2 border-white bg-black p-4 text-center text-xs text-white ' +
+        'absolute top-1/2 left-1/2 w-56 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-xl border-2 border-white bg-black p-4 text-center text-xs text-white ' +
         (show ? '' : 'hidden ')
       }>
       {children}
