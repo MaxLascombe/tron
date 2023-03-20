@@ -111,35 +111,35 @@ const GameCanvas = ({
   useKeyAction([
     {
       key: 'ArrowUp',
-      function: () => redTurn('up'),
-    },
-    {
-      key: 'ArrowRight',
-      function: () => redTurn('right'),
-    },
-    {
-      key: 'ArrowDown',
-      function: () => redTurn('down'),
-    },
-    {
-      key: 'ArrowLeft',
-      function: () => redTurn('left'),
-    },
-    {
-      key: 'w',
       function: () => blueTurn('up'),
     },
     {
-      key: 'd',
+      key: 'ArrowRight',
       function: () => blueTurn('right'),
     },
     {
-      key: 's',
+      key: 'ArrowDown',
       function: () => blueTurn('down'),
     },
     {
-      key: 'a',
+      key: 'ArrowLeft',
       function: () => blueTurn('left'),
+    },
+    {
+      key: 'w',
+      function: () => redTurn('up'),
+    },
+    {
+      key: 'd',
+      function: () => redTurn('right'),
+    },
+    {
+      key: 's',
+      function: () => redTurn('down'),
+    },
+    {
+      key: 'a',
+      function: () => redTurn('left'),
     },
   ])
 
