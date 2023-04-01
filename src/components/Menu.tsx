@@ -10,7 +10,13 @@ const Menu = ({ show }: { show: boolean }) => {
   return (
     <Popup show={show} blur={true}>
       Welcome to
-      <h1 className='p-4 text-3xl'>TRON</h1>
+      <h1 className='hidden p-4 text-3xl'>TRON</h1>
+      <img
+        style={{ imageRendering: 'pixelated' }}
+        src='/logo.png'
+        alt='logo'
+        className='my-4 h-auto w-full'
+      />
       Press Space to begin.
       <div className='mt-2'>
         <div

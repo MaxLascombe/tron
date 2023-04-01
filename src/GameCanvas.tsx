@@ -22,7 +22,7 @@ const GameCanvas = ({
   const [{ width, height }, setCanvasSize] = useState<{
     width: number
     height: number
-  }>({ width: 100, height: 100 })
+  }>({ width: 60, height: 60 })
   const initialBluePos = [width - 50, height - 50] as [number, number]
 
   const {

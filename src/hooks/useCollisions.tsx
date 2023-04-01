@@ -20,7 +20,7 @@ function intersects(
   } else {
     lambda = ((s - q) * (r - a) + (p - r) * (s - b)) / det
     gamma = ((b - d) * (r - a) + (c - a) * (s - b)) / det
-    return 0 < lambda && lambda < 1 && 0 < gamma && gamma < 1
+    return 0 < lambda && lambda <= 1 && 0 < gamma && gamma <= 1
   }
 }
 
@@ -29,6 +29,7 @@ export const useCollisions = (
   paths: Path[],
   { width, height }: { width: number; height: number }
 ) => {
+  // collisions with walls
   for (let i = 0; i < curMoves.length; i++) {
     const pos = curMoves[i].slice(2)
     if (pos[0] < 0 || pos[1] < 0 || pos[0] > width || pos[1] > height) return i
@@ -41,6 +42,8 @@ export const useCollisions = (
       [curMoves[i][0], curMoves[i][1]],
       [curMoves[i][2], curMoves[i][3]],
     ] as const
+
+    // collisions with self
     for (let j = 0; j < path.length - 2; j++) {
       const segment = [path[j], path[j + 1]]
       if (
@@ -57,6 +60,8 @@ export const useCollisions = (
       )
         return i
     }
+
+    // collisions with other players
     for (let j = 0; j < paths.length; j++) {
       if (i === j) continue
       for (let k = 0; k < paths[j].length - 1; k++) {
