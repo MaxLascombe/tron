@@ -170,7 +170,7 @@ const GameCanvas = ({
     <div
       ref={containerRef}
       className={
-        'h-full w-full overflow-hidden rounded-lg border-2 ' +
+        'fixed left-4 right-4 top-4 bottom-4 z-0 overflow-hidden rounded-lg border-2 ' +
         (loser === 0
           ? 'border-blue-800'
           : loser === 1
