@@ -1,4 +1,6 @@
 import { useEffect, useRef, Dispatch, SetStateAction, useState } from 'react'
+
+import ButtonGroup from './components/ButtonGroup'
 import { useAnimationFrame } from './hooks/useAnimationFrame'
 import { useCollisions } from './hooks/useCollisions'
 import { useKeyAction } from './hooks/useKeyAction'
@@ -171,6 +173,16 @@ const GameCanvas = ({
           ? 'border-red-600'
           : 'border-white')
       }>
+      <ButtonGroup
+        position={width > height ? 'left' : 'top'}
+        leftClick={() => redTurn('left')}
+        rightClick={() => redTurn('right')}
+      />
+      <ButtonGroup
+        position={width > height ? 'right' : 'bottom'}
+        leftClick={() => blueTurn('left')}
+        rightClick={() => redTurn('right')}
+      />
       <canvas className='h-full w-full' ref={canvasRef} />
     </div>
   )
