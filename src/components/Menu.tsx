@@ -15,7 +15,7 @@ const Menu = ({ show }: { show: boolean }) => {
         style={{ imageRendering: 'pixelated' }}
         src='/logo.png'
         alt='logo'
-        className='my-4 h-auto w-full'
+        className='my-4 mx-auto h-auto w-32'
       />
       Press Space to begin.
       <div className='mt-2'>
