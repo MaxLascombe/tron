@@ -41,11 +41,24 @@ const App = () => {
       {showMusicPopup ? (
         <MusicPopup close={closeMusicPopup} />
       ) : (
-        <Menu show={gameStatus === 'menu'} />
+        <Menu
+          show={gameStatus === 'menu'}
+          startClick={() => setGameStatus('running')}
+        />
       )}
-      <PausePopup paused={gameStatus === 'paused'} />
+      <PausePopup
+        paused={gameStatus === 'paused'}
+        unpauseClick={() => setGameStatus('running')}
+      />
       <GameCanvas key={gameKey} {...{ gameStatus, setGameStatus, setWinner }} />
-      <GameOver show={gameStatus === 'over'} winner={winner} />
+      <GameOver
+        show={gameStatus === 'over'}
+        winner={winner}
+        restartClick={() => {
+          setGameKey(gk => gk + 1)
+          setGameStatus('menu')
+        }}
+      />
     </div>
   )
 }

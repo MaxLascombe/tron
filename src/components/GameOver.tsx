@@ -3,7 +3,15 @@ import { useState } from 'react'
 import Popup from './Popup'
 import { useAnimationTimeout } from '../hooks/useAnimationFrame'
 
-const PausePopup = ({ show, winner }: { show: boolean; winner: string }) => {
+const PausePopup = ({
+  show,
+  winner,
+  restartClick,
+}: {
+  show: boolean
+  winner: string
+  restartClick: () => void
+}) => {
   const [clicked, setClicked] = useState(false)
   useAnimationTimeout(() => setClicked(c => !c), 500)
 
@@ -21,13 +29,14 @@ const PausePopup = ({ show, winner }: { show: boolean; winner: string }) => {
       <br />
       Press Space to start another game.
       <div className='mt-2'>
-        <div
+        <button
+          onClick={restartClick}
           className={
             'inline-block rounded-xl border-2 border-white px-8 py-2 text-xs ' +
             (clicked ? 'mb-0.5 mt-1 border-b-2' : 'border-b-8')
           }>
-          SPACE
-        </div>
+          RESTART
+        </button>
       </div>
     </Popup>
   )
