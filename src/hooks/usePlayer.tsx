@@ -57,17 +57,29 @@ export const usePlayer = (
   }
 
   const leftTurn = () => {
-    if (direction === 'up') turn('left')
-    if (direction === 'right') turn('up')
-    if (direction === 'down') turn('right')
-    turn('down')
+    setDirection(d =>
+      d === 'up'
+        ? 'left'
+        : d === 'left'
+        ? 'down'
+        : d === 'down'
+        ? 'right'
+        : 'up'
+    )
+    setVertices(v => [...v, position])
   }
 
   const rightTurn = () => {
-    if (direction === 'up') turn('right')
-    if (direction === 'right') turn('down')
-    if (direction === 'down') turn('left')
-    turn('up')
+    setDirection(d =>
+      d === 'up'
+        ? 'right'
+        : d === 'right'
+        ? 'down'
+        : d === 'down'
+        ? 'left'
+        : 'up'
+    )
+    setVertices(v => [...v, position])
   }
 
   return {
