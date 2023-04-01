@@ -16,7 +16,7 @@ const ButtonGroup = ({
       ? 'bottom-8 left-1/2 -translate-x-1/2'
       : 'top-1/2 left-8 -translate-y-1/2 rotate-90'
   return (
-    <div className={'fixed h-96 w-96 md:hidden ' + cN}>
+    <div className={'pointer-events-none fixed h-96 w-96 md:hidden ' + cN}>
       <div className='absolute bottom-0 left-1/2 -translate-x-1/2'>
         <div className='space-around flex pl-2 '>
           <Button onClick={leftClick} text='←' />
@@ -39,7 +39,7 @@ const ButtonGroup = ({
 const Button = ({ onClick, text }: { onClick: () => void; text: string }) => (
   <button
     onClick={onClick}
-    className='mr-2 h-12 w-12 rounded-xl border-2 p-2 text-lg text-white '>
+    className='pointer-events-auto mr-2 h-12 w-12 rounded-xl border-2 p-2 text-lg text-white '>
     {text}
   </button>
 )
