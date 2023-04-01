@@ -32,6 +32,8 @@ const GameCanvas = ({
     prevPosition: redPrev,
     updatePosition: redUpdatePosition,
     turn: redTurn,
+    leftTurn: redLeft,
+    rightTurn: redRight,
     vertices: redVertices,
   } = usePlayer([50, 50], 'down', gameStatus)
   const {
@@ -39,6 +41,8 @@ const GameCanvas = ({
     prevPosition: bluePrev,
     updatePosition: blueUpdatePosition,
     turn: blueTurn,
+    leftTurn: blueLeft,
+    rightTurn: blueRight,
     vertices: blueVertices,
   } = usePlayer(initialBluePos, 'up', gameStatus)
 
@@ -175,13 +179,13 @@ const GameCanvas = ({
       }>
       <ButtonGroup
         position={width > height ? 'left' : 'top'}
-        leftClick={() => redTurn('left')}
-        rightClick={() => redTurn('right')}
+        leftClick={redLeft}
+        rightClick={redRight}
       />
       <ButtonGroup
         position={width > height ? 'right' : 'bottom'}
-        leftClick={() => blueTurn('left')}
-        rightClick={() => redTurn('right')}
+        leftClick={blueLeft}
+        rightClick={blueRight}
       />
       <canvas className='h-full w-full' ref={canvasRef} />
     </div>

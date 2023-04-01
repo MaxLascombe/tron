@@ -56,11 +56,27 @@ export const usePlayer = (
     setVertices(v => [...v, position])
   }
 
+  const leftTurn = () => {
+    if (direction === 'up') turn('left')
+    if (direction === 'right') turn('up')
+    if (direction === 'down') turn('right')
+    turn('down')
+  }
+
+  const rightTurn = () => {
+    if (direction === 'up') turn('right')
+    if (direction === 'right') turn('down')
+    if (direction === 'down') turn('left')
+    turn('up')
+  }
+
   return {
     position,
     prevPosition,
     updatePosition,
     turn,
+    leftTurn,
+    rightTurn,
     vertices,
   }
 }
