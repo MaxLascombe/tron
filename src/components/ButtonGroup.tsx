@@ -38,7 +38,7 @@ const ButtonGroup = ({
 
 const Button = ({ onClick, text }: { onClick: () => void; text: string }) => (
   <button
-    onClick={onClick}
+    onTouchStart={onClick}
     className='pointer-events-auto mr-2 h-12 w-12 rounded-xl border-2 p-2 text-lg text-white '>
     {text}
   </button>
